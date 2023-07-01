@@ -20,7 +20,14 @@ def App():
             "description": description,
             "id": uuid4(),
         }
-        print(new_task)
+        # print(new_task)
+        setTasks(tasks + [new_task])
+
+    list_items = [html.li(
+        f"{task['title']} - {task['description']}",
+        html.button('Delete'),
+        html.button('Edit'),
+    ) for task in tasks]
 
     return html.div(
         html.form(
@@ -34,11 +41,11 @@ def App():
             }),
             html.textarea({
                 "placeholder": "Write a description",
-                "onchange": lambda e: setDescription(e["target"]["value"]),
+                "on_change": lambda e: setDescription(e["target"]["value"]),
             }),
             html.button("Create task"),
         ),
-        html.ul()
+        html.ul(list_items),
     )
 
 
