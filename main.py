@@ -15,6 +15,8 @@ def App():
 
     @reactpy.event(prevent_default=True)
     def handle_submit(e):
+        if not title or not description:
+            return
         if not editing:
             new_task = {
                 "title": title,
