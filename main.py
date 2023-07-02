@@ -23,9 +23,16 @@ def App():
         # print(new_task)
         setTasks(tasks + [new_task])
 
+    def handle_delete(id):
+        filtered_tasks = [task for task in tasks if task['id'] != id]
+        setTasks(filtered_tasks)
+
     list_items = [html.li(
         f"{task['title']} - {task['description']}",
-        html.button('Delete'),
+        html.p(task['id']),
+        html.button({
+            "onclick": lambda e, task_id=task['id']: handle_delete(task_id),
+        }, 'Delete'),
         html.button('Edit'),
     ) for task in tasks]
 
